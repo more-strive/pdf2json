@@ -1,0 +1,19 @@
+{
+  "name": "pdf2fabric.js",
+  "version": "1.0.0",
+  "description": "pdf2fabric",
+  "main": "index.ts",
+  "keywords": [
+    "pdf.js",
+    "fabric.js"
+  ],
+  "author": "morestrive",
+  "license": "MIT",
+  "dependencies": {
+    "pdfjs-dist": "^3.11.174"
+  },
+  "devDependencies": {
+    "@types/node": "^22.1.0"
+  },
+  "type": "module"
+}
