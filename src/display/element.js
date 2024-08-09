@@ -1,12 +1,12 @@
 
 export const getTextElement = () => {
   return {
-    "fontSize": "160",
+    "fontSize": "12",
     "fontWeight": "normal",
     "fontFamily": "得意黑",
     "fontStyle": "normal",
     "lineHeight": 1.3,
-    "text": "yft",
+    "text": "",
     "charSpacing": 3,
     "textAlign": "justify-center",
     "styles": [],
@@ -38,7 +38,7 @@ export const getTextElement = () => {
     "radius": 66,
     "globalCompositeOperation": "source-over",
     "type": "Textbox",
-    "version": "6.0.0-beta12",
+    "version": "6.0.0",
     "originX": "left",
     "originY": "top",
     "left": 136.1019,
@@ -67,4 +67,4 @@ export const getTextElement = () => {
     "skewX": 0,
     "skewY": 0
   }
-}
+} 

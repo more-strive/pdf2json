@@ -1,5 +1,5 @@
 import fs from "fs";
-const logPath = "log.txt"
+const logPath = "file.log"
 
 if (fs.existsSync(logPath)) {
   fs.rmSync(logPath)

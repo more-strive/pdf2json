@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 /* globals __non_webpack_require__ */
+import '../shared/log.js'
 import { getTextElement } from "./element.js";
 import { deprecated, DOMSVGFactory } from "./display_utils.js";
 import {
@@ -782,6 +783,9 @@ class SVGGraphics {
 
     current.xcoords = [];
     current.ycoords = [];
+    current.textElement['fontFamily'] = current.fontFamily
+    current.textElement['fontSize'] = pf(current.fontSize)
+    current.textElement['top'] = pf(-current.y)
     // current.tspan = this.svgFactory.createElement("svg:tspan");
     // current.tspan.setAttributeNS(null, "font-family", current.fontFamily);
     // current.tspan.setAttributeNS(
@@ -845,7 +849,7 @@ class SVGGraphics {
         if (vertical) {
           current.ycoords.push(-current.y + scaledY);
         }
-        // current.tspan.textContent += character;
+        current.textElement.text += character;
       } else {
         // TODO: To assist with text selection, we should replace the missing
         // character with a space character if charWidth is not zero.
@@ -877,15 +881,19 @@ class SVGGraphics {
     }
 
     // current.tspan.setAttributeNS(null, "font-family", current.fontFamily);
+    current.textElement['fontFamily'] = current.fontFamily
+    current.textElement['fontSize'] = pf(current.fontSize)
     // current.tspan.setAttributeNS(
     //   null,
     //   "font-size",
     //   `${pf(current.fontSize)}px`
     // );
     if (current.fontStyle !== SVG_DEFAULTS.fontStyle) {
+      current.textElement['fontStyle'] = current.fontStyle
       // current.tspan.setAttributeNS(null, "font-style", current.fontStyle);
     }
     if (current.fontWeight !== SVG_DEFAULTS.fontWeight) {
+      current.textElement['fontWeight'] = current.fontWeight
       // current.tspan.setAttributeNS(null, "font-weight", current.fontWeight);
     }
 
@@ -896,16 +904,21 @@ class SVGGraphics {
       fillStrokeMode === TextRenderingMode.FILL_STROKE
     ) {
       if (current.fillColor !== SVG_DEFAULTS.fillColor) {
+        current.textElement['fill'] = current.fillColor
+        current.textElement['color'] = current.fillColor
         // current.tspan.setAttributeNS(null, "fill", current.fillColor);
       }
       if (current.fillAlpha < 1) {
+        current.textElement['opacity'] = current.fillAlpha
         // current.tspan.setAttributeNS(null, "fill-opacity", current.fillAlpha);
       }
     } else if (current.textRenderingMode === TextRenderingMode.ADD_TO_PATH) {
       // Workaround for Firefox: We must set fill="transparent" because
       // fill="none" would generate an empty clipping path.
+      current.textElement['fill'] = "transparent"
       // current.tspan.setAttributeNS(null, "fill", "transparent");
     } else {
+      current.textElement['fill'] = null
       // current.tspan.setAttributeNS(null, "fill", "none");
     }
 
@@ -925,7 +938,7 @@ class SVGGraphics {
       textMatrix = textMatrix.slice();
       textMatrix[5] += current.textRise;
     }
-
+    console.log('textElement:', JSON.stringify(current.textElement))
     // current.txtElement.setAttributeNS(
     //   null,
     //   "transform",
