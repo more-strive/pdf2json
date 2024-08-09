@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 /* globals __non_webpack_require__ */
-
+import { getTextElement } from "./element.js";
 import { deprecated, DOMSVGFactory } from "./display_utils.js";
 import {
   FONT_IDENTITY_MATRIX,
@@ -767,6 +767,7 @@ class SVGGraphics {
     current.textMatrix = IDENTITY_MATRIX;
     current.lineMatrix = IDENTITY_MATRIX;
     current.textMatrixScale = 1;
+    current.textElement = getTextElement()
     // current.tspan = this.svgFactory.createElement("svg:tspan");
     // current.txtElement = this.svgFactory.createElement("svg:text");
     // current.txtgrp = this.svgFactory.createElement("svg:g");

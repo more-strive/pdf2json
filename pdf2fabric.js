@@ -37,4 +37,4 @@ const main = async (pdfPath) => {
   }
 }
 
-await main('src/resources/test.pdf')
+await main('src/mocks/test.pdf')
