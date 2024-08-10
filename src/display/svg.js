@@ -568,6 +568,12 @@ class SVGGraphics {
         case OPS.dependency:
           // Handled in `loadDependencies`, so no warning should be shown.
           break;
+        case OPS.beginGroup:
+          console.log(args)
+          break
+        case OPS.endGroup:
+          console.log(args)
+          break
         case OPS.setLeading:
           this.setLeading(args);
           break;
@@ -769,6 +775,7 @@ class SVGGraphics {
     current.lineMatrix = IDENTITY_MATRIX;
     current.textMatrixScale = 1;
     current.textElement = getTextElement()
+    // console.log(JSON.stringify(current.textElement))
     // current.tspan = this.svgFactory.createElement("svg:tspan");
     // current.txtElement = this.svgFactory.createElement("svg:text");
     // current.txtgrp = this.svgFactory.createElement("svg:g");
@@ -814,7 +821,7 @@ class SVGGraphics {
     const defaultVMetrics = font.defaultVMetrics;
     const widthAdvanceScale = fontSize * current.fontMatrix[0];
 
-    let x = 0;
+    let x = 0, unicode = '';
     for (const glyph of glyphs) {
       if (glyph === null) {
         // Word break
@@ -849,7 +856,7 @@ class SVGGraphics {
         if (vertical) {
           current.ycoords.push(-current.y + scaledY);
         }
-        current.textElement.text += character;
+        // current.textElement.text += character;
       } else {
         // TODO: To assist with text selection, we should replace the missing
         // character with a space character if charWidth is not zero.
@@ -860,7 +867,7 @@ class SVGGraphics {
       const charWidth = vertical
         ? width * widthAdvanceScale - spacing * fontDirection
         : width * widthAdvanceScale + spacing * fontDirection;
-
+      current.textElement.text += glyph.unicode ? glyph.unicode : ''
       x += charWidth;
     }
     // current.tspan.setAttributeNS(null, "x", current.xcoords.map(pf).join(" "));
@@ -938,7 +945,7 @@ class SVGGraphics {
       textMatrix = textMatrix.slice();
       textMatrix[5] += current.textRise;
     }
-    console.log('textElement:', JSON.stringify(current.textElement))
+    // console.log('textElement:', JSON.stringify(current.textElement))
     // current.txtElement.setAttributeNS(
     //   null,
     //   "transform",
@@ -1022,6 +1029,7 @@ class SVGGraphics {
 
   endText() {
     const current = this.current;
+    console.log('current:', current.textElement)
     if (
       current.textRenderingMode & TextRenderingMode.ADD_TO_PATH_FLAG &&
       current.txtElement?.hasChildNodes()

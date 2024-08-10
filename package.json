@@ -10,6 +10,7 @@
   "author": "morestrive",
   "license": "MIT",
   "dependencies": {
+    "nanoid": "^5.0.7",
     "pdfjs-dist": "^3.11.174"
   },
   "devDependencies": {

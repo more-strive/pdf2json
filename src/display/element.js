@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid"
+
 
 export const getTextElement = () => {
   return {
@@ -21,7 +23,7 @@ export const getTextElement = () => {
     "direction": "ltr",
     "minWidth": 20,
     "splitByGrapheme": false,
-    "id": "XBWMxwBboP",
+    "id": nanoid(10),
     "name": "textbox",
     "editable": true,
     "color": "rgb(0,0,0)",
